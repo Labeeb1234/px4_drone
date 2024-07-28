@@ -31,8 +31,9 @@ class OffBoardNode{
         drone_mode_client_ = this->nh_.serviceClient<mavros_msgs::SetMode>("/mavros/set_mode");
         arming_client_ = this->nh_.serviceClient<mavros_msgs::CommandBool>("/mavros/cmd/arming");
         drone_TOL_client_ = this->nh_.serviceClient<mavros_msgs::CommandTOL>("/mavros/cmd/takeoff");
-
-        timer_ = this->nh_.createWallTimer(ros::WallDuration(0.1), bind(&OffBoardNode::DroneMode, this));
+        
+        float offboard_freq_ = 10.0; // [Hz] 
+        timer_ = this->nh_.createWallTimer(ros::WallDuration(1/offboard_freq_), bind(&OffBoardNode::DroneMode, this));
     
         ROS_INFO("Starting Offboard Node...");
         this->last_updated_time = ros::Time::now();
