@@ -10,13 +10,17 @@
 #include "rclcpp/rclcpp.hpp"
 #include "tf2/LinearMath/Quaternion.h"
 #include "tf2_ros/transform_broadcaster.h"
-#include "tf2_ros/static_transform_broadcaster.h"
+#include "tf2_ros/static_transform_broadcaster.h" 
 
 using namespace std;
 
 class PicoFrameBroadcaster : public rclcpp::Node{
 public:
   PicoFrameBroadcaster(): Node("pico_frame_broadcaster"){
+
+
+    this->declare_parameter("drone_namespace", "swift_pico");
+    this->drone_ns = this->get_parameter("drone_namespace").as_string();
 
     // Initialize the transform broadcaster
     tf_broadcaster_ = std::make_unique<tf2_ros::TransformBroadcaster>(*this);
@@ -28,6 +32,15 @@ public:
 
     pose_sub_ = this->create_subscription<nav_msgs::msg::Odometry>("rotors/odometry", 10, bind(&PicoFrameBroadcaster::handle_turtle_pose, this, std::placeholders::_1));
     timer_ = this->create_wall_timer(chrono::milliseconds(20), bind(&PicoFrameBroadcaster::static_broadcaster, this));
+
+    // motor positions wrt the drone base centre
+    this->motor_positions = {
+      {0.19, -0.19, 0.0},
+      {-0.19, 0.19, 0.0},
+      {0.19, 0.19, 0.0},
+      {-0.19, -0.19, 0.0}
+    };
+
   }
   ~PicoFrameBroadcaster(){}
 
@@ -39,7 +52,7 @@ public:
     // corresponding tf variables
     t.header.stamp = this->get_clock()->now();
     t.header.frame_id = "odom";
-    t.child_frame_id = "swift_pico/base_link";
+    t.child_frame_id = this->drone_ns+"/base_link";
 
     // Turtle only exists in 2D, thus we get x and y translation
     // coordinates from the message and set the z coordinate to 0
@@ -57,10 +70,18 @@ public:
   }
 
   void static_broadcaster(){
-
     for(int i=0; i<4; i++){
-        geometry_msgs::msg::TransformStamped motor_t;
-        
+
+      geometry_msgs::msg::TransformStamped motor_t;
+      motor_t.header.stamp = this->get_clock()->now();
+      motor_t.header.frame_id = this->drone_ns+"/base_link";
+      motor_t.child_frame_id = this->drone_ns+"m1"+ to_string(i+1);
+      motor_t.transform.translation.x = this->motor_positions[i][0];
+      motor_t.transform.translation.y = this->motor_positions[i][1];
+      motor_t.transform.translation.z = this->motor_positions[i][2];
+
+      motor_tf_broadcasters_[i]->sendTransform(motor_t);
+
     }
 
   }
@@ -70,6 +91,8 @@ public:
     rclcpp::TimerBase::SharedPtr timer_;
     unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
     vector<unique_ptr<tf2_ros::TransformBroadcaster>> motor_tf_broadcasters_;
+    vector<vector<double>> motor_positions;
+    string drone_ns;
 
 };
 

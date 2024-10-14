@@ -76,7 +76,7 @@ def generate_launch_description():
             remappings=[
                 ('image', '/whycon/image_out')
             ]
-        )
+    )
     
     return LaunchDescription([
         gz_sim,
