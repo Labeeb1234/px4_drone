@@ -70,7 +70,7 @@ class Swift_Pico : public rclcpp::Node
 		    after tuning and computing corresponding PID parameters, change the parameters*/
 
             //proportional
-            Kp[0] = 0;
+            Kp[0] = 0; 
             Kp[1] = 0;
             Kp[2] = 0;
 

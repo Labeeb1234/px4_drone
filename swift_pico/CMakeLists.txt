@@ -19,12 +19,13 @@ find_package(nav_msgs REQUIRED)
 
 
 add_executable(pico_controller_cpp src/pico_controller.cpp)
+add_executable(position_pid_controller_cpp src/position_pid_controller.cpp)
 add_executable(pico_tf src/pico_tf.cpp) 
 add_executable(map_cpp scripts/map.cpp)
 ament_target_dependencies(pico_controller_cpp rclcpp swift_msgs pid_msg geometry_msgs)
+ament_target_dependencies(position_pid_controller_cpp rclcpp swift_msgs pid_msg geometry_msgs nav_msgs)
 ament_target_dependencies(pico_tf rclcpp nav_msgs geometry_msgs tf2 tf2_ros)
 ament_target_dependencies(map_cpp OpenCV)
-
 
 install(TARGETS
   pico_controller_cpp
@@ -32,6 +33,10 @@ install(TARGETS
 )
 install(TARGETS
   pico_tf
+  DESTINATION lib/${PROJECT_NAME}
+)
+install(TARGETS
+  position_pid_controller_cpp
   DESTINATION lib/${PROJECT_NAME}
 )
 
