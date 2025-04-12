@@ -1,7 +1,14 @@
 ## Autonomous Drone
 - Hardware used is : S500 Frame with components in a kit
 - Weight of the entire drone with all the drone components and offboard computational boards: 2.0kg
+
 # Note: Tested on ROS Noetic
+
+
+
+
+
+
 ## ====================================================================================================
 # PX4-Autpilot and QGC(Drone Mission GUI) setup
 ## ====================================================================================================
