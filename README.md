@@ -2,7 +2,7 @@
 - Hardware used is : S500 Frame with components in a kit
 - Weight of the entire drone with all the drone components and offboard computational boards: 2.0kg
 
-# Note: Tested on ROS Noetic
+# Note: Tested on ROS Noetic on Ubuntu 20.04 (Focal Fossa)
 
 
 
