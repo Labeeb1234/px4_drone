@@ -1,3 +1,7 @@
+
+
+
+
 ## Autonomous Drone
 - Hardware used is : S500 Frame with components in a kit
 - Weight of the entire drone with all the drone components and offboard computational boards: 2.0kg
@@ -6,7 +10,10 @@
 
 
 
-
+## Spatial-LM Implementation using realsense d435(i)
+- Point Cloud Understanding LLM model, basically an object detection and understanding on processed point cloud data.
+- Understand spatial layouts and relationships using language
+- more info [here](https://huggingface.co/manycore-research/SpatialLM-Llama-1B)
 
 
 ## ====================================================================================================
