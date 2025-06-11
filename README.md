@@ -21,7 +21,15 @@
 
 ## ====================================================================================================
 # PX4-Autpilot and QGC(Drone Mission GUI) setup
-## ====================================================================================================
+## ==========================================================================================
 # Drone Navigation Experiments
 # Using 3DVFH+* Local Planner for obstacle avoidance and path replanning
-The 3DVFH+* local planner repo is taken from this repo "https://github.com/PX4/PX4-Avoidance" follow the steps in this repo for installation.
+
+- Demo Video (navigation using 3dvfh+* local planner)
+  [![VIDEO_ALT_TEXT](https://i9.ytimg.com/vi/_zSN2GMdqgo/mq2.jpg?sqp=CNymp8IG-oaymwEoCMACELQB8quKqQMcGADwAQH4AYwCgALgA4oCDAgAEAEYZSBbKEswDw==&rs=AOn4CLAhKmfd6mNKUw-mw23yUjLWsrBnHA)](https://youtube.com/shorts/_zSN2GMdqgo)
+
+
+https://github.com/user-attachments/assets/145122ba-c00e-4088-ba6d-17a987c4e463
+
+
+- The 3DVFH+* local planner repo is taken from this repo "https://github.com/PX4/PX4 Avoidance" follow the steps in this repo for installation.
