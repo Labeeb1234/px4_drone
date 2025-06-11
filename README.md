@@ -29,5 +29,4 @@
  
    https://github.com/user-attachments/assets/145122ba-c00e-4088-ba6d-17a987c4e463
 
-
 - The 3DVFH+* local planner repo is taken from this repo "https://github.com/PX4/PX4 Avoidance" follow the steps in this repo for installation.
