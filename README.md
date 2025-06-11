@@ -26,10 +26,7 @@
 # Using 3DVFH+* Local Planner for obstacle avoidance and path replanning
 
 - Demo Video (navigation using 3dvfh+* local planner)
-   (https://youtube.com/shorts/_zSN2GMdqgo)
-
-
-https://github.com/user-attachments/assets/145122ba-c00e-4088-ba6d-17a987c4e463
+   https://github.com/user-attachments/assets/145122ba-c00e-4088-ba6d-17a987c4e463
 
 
 - The 3DVFH+* local planner repo is taken from this repo "https://github.com/PX4/PX4 Avoidance" follow the steps in this repo for installation.
