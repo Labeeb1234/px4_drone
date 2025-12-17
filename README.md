@@ -183,14 +183,6 @@ Adjust these parameters based on your hardware and environment.
 **Issue**: Slow trajectory generation
 - Solution: Reduce map resolution, enable GPU acceleration, optimize downsampling parameters
 
-## Contributing
-
-Contributions are welcome! Please: 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
 
 ## References & Attribution
 
@@ -198,27 +190,6 @@ This project builds upon:
 - [PX4 Avoidance](https://github.com/PX4/PX4-Avoidance) - 3DVFH+* implementation
 - [Fast-Planner](https://github.com/HKUST-Aerial-Robotics/Fast-Planner) - Trajectory optimization
 - [SpatialLM](https://huggingface.co/manycore-research/SpatialLM-Llama-1B) - Spatial understanding
-
-## License
-
-This project is open source.  Please refer to individual module licenses: 
-- Fast-Planner modules: GPLv3
-- PX4 integration: BSD 3-Clause
-
-## Disclaimer
-
-This is a research and development project. Use at your own risk.  Autonomous flight systems can be dangerous. Always:
-- Test in controlled environments
-- Follow local aviation regulations
-- Maintain line of sight during initial tests
-- Use appropriate safety measures (crash nets, clear areas, etc.)
-
-## Support & Contact
-
-For issues, questions, or suggestions:
-- Open an issue on GitHub
-- Check existing issues and discussions
-- Review module-specific documentation
 
 ---
 
