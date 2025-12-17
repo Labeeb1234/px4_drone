@@ -51,7 +51,7 @@ px4_drone/
 - **PX4 Autopilot**: Latest stable version
 - **QGC**: QGroundControl (Mission planning GUI)
 - **C++ Compiler**: C++11 or higher
-- **Depth Camera**: RealSense D435(i) (optional but recommended)
+- **Depth Camera**: RealSense D435
 
 ### Required Dependencies
 ```bash
