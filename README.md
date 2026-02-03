@@ -5,7 +5,7 @@ An open-source testing and development package for autonomous drone systems with
 - currently undergoing both hardware (due to some unforseen outcomes in the previous tests) and software updates (porting to ROS2 and structuring the different coms architecture)
 
   <div>
-   <img src="https://github.com/user-attachments/assets/097cda33-6b2d-4e2c-8537-0c06e108bddf" alt="Quadcoptor-Hardware" />
+   <img src="https://github.com/user-attachments/assets/097cda33-6b2d-4e2c-8537-0c06e108bddf" alt="Quadcoptor-Hardware" height="480" width="640"/>
   </div>
 
 
