@@ -2,6 +2,9 @@
 
 An open-source testing and development package for autonomous drone systems with advanced obstacle avoidance, path planning, and spatial understanding capabilities.
 
+- currently undergoing both hardware (due to some unforseen outcomes in the previous tests) and software updates (porting to ROS2 and structuring the different coms architecture)
+
+
 ## Overview
 
 This repository contains a complete autonomous drone system built on the PX4 autopilot stack. It integrates multiple planning and perception modules to enable safe autonomous navigation in complex environments.
@@ -9,11 +12,23 @@ This repository contains a complete autonomous drone system built on the PX4 aut
 **Hardware Configuration:**
 - Platform: S500 Quadrotor Frame
 - Total Weight: ~2.0 kg (including all computational boards)
-- Development Environment: ROS Noetic on Ubuntu 20.04 (Focal Fossa)
+- Companion Computer/computational boards: Raspi 4B 8GB RAM
+- Development Environment for companion computer: ROS2 Humble -- Ubuntu 22.04 ARM64 Mate version(Jelly Jammy) 
+
+**Software Configuration:**
+
+- **OS**: Ubuntu 22.04
+- **ROS**: ROS2 Humble
+- **PX4 Autopilot**: Latest stable version
+- **QGC**: QGroundControl (Mission planning GUI)
+- **C++ Compiler**: C++11 or higher
+- **Depth Camera**: RealSense D435(i)
+
+
 
 ## Key Features
 
-### 🚁 Autonomous Navigation
+<!-- ### 🚁 Autonomous Navigation
 - **3DVFH+* Local Planner**: Advanced obstacle avoidance and dynamic path replanning
 - **Fuel Planner**: Fast trajectory generation for agile autonomous flight
 - **Real-time Processing**: High-quality trajectory outputs within milliseconds
@@ -29,58 +44,36 @@ This repository contains a complete autonomous drone system built on the PX4 aut
 - **Point Cloud Processing**: `pcd_saver` - Capture and save point cloud data
 - **Exploration Management**: `fuel_planner/exploration_manager` - Autonomous exploration strategies
 - **Local Planning**: `local_planner` - Real-time obstacle avoidance
-- **Avoidance Systems**: `avoidance` - Advanced collision avoidance algorithms
+- **Avoidance Systems**: `avoidance` - Advanced collision avoidance algorithms -->
 
-## System Architecture
+## System Arch And Software Testing (TBC)
 
-```
-px4_drone/
-├── avoidance/              # Collision avoidance module
-├── fuel_planner/           # Fast trajectory planning system
-│   ├── exploration_manager/
-│   └── plan_manage/
-├── local_planner/          # Local navigation and obstacle avoidance
-├── pcd_saver/              # Point cloud data capture
-└── README.md
-```
+- Test system arch (high level)
+ 
+  <div>
+   <img src="https://github.com/user-attachments/assets/cdab23c8-f234-4a42-ae05-5ee896728bf7" alt="High-Level-Architecture" />
+  </div>
 
-## Prerequisites
+- Currently testing different coms and connection archs for the drone FCU and raspi (companion computer): Mavlink(mavlink_c or mavsdk) serial coms mode, uXRCE-DDS
+- Mavlink with serial coms works fine was able to read data properly, tested extracting the ATTITUDE data from the FCU
+- Refer this [doc](https://docs.px4.io/main/en/companion_computer/pixhawk_rpi) for knowing the hardware and firmware setup to enable UART serial coms between raspi and pixhawk
 
-- **OS**: Ubuntu 20.04 (Focal Fossa)
-- **ROS**: ROS Noetic
-- **PX4 Autopilot**: Latest stable version
-- **QGC**: QGroundControl (Mission planning GUI)
-- **C++ Compiler**: C++11 or higher
-- **Depth Camera**: RealSense D435
+- **Note**: make sure to use a working FCU 😭
+
+
 
 ### Required Dependencies
-```bash
-# Install ROS Noetic
-sudo apt-get install ros-noetic-desktop-full
+- Install ubuntu mate (ver:22.04) a mimimal ubuntu desktop type OS optimized for raspi
+- For Mavlink installation refer [this](https://mavlink.io/en/getting_started/installation.html); I used the C library (mavlink 2 version) for testing and understanding but there are versions of mavlink framwork for many other languages too check the doc. For mavlink2_c use this [doc](https://github.com/mavlink/c_uart_interface_example/blob/master/autopilot_interface.cpp#L596) to learning about the APIs
+- Install ROS2-Humble (follow doc) same steps work for ARM64 systems too.
 
-# Install PX4 dependencies
-sudo apt-get install python3-pip python3-numpy
-pip3 install --user pyserial pyulog
+- **Note**: You do not need to install or generate the source files if you are using the C programming language and a standard dialect. Just get the prebuilt libraries and then jump to Using C Libraries. For custom dialects (message types written in xml format) you also need mavgen for generate custom message interface libs; ser [here](https://mavlink.io/en/mavgen_c/#get_libraries)
 
-# Install additional tools
-sudo apt-get install ros-noetic-realsense2-camera
-sudo apt-get install ros-noetic-pointcloud-to-laserscan
-```
+- **More coming as the testing progresses**
+
 
 ## Installation & Setup
 
-### 1. Clone the Repository
-```bash
-cd ~/catkin_ws/src
-git clone https://github.com/Labeeb1234/px4_drone.git
-cd ~/catkin_ws
-```
-
-### 2. Build the Workspace
-```bash
-catkin_make
-source devel/setup.bash
-```
 
 ### 3. PX4 Autopilot Setup
 Follow the installation guide at [PX4 Avoidance](https://github.com/PX4/PX4-Avoidance) to set up the 3DVFH+* local planner.
@@ -91,16 +84,6 @@ Download and install [QGroundControl](http://qgroundcontrol.com/) for mission pl
 ## Usage
 
 ### Launch the Navigation Stack
-```bash
-# Terminal 1: Start RViz visualization
-roslaunch px4_drone visualization. launch
-
-# Terminal 2: Start autonomous navigation system
-roslaunch px4_drone navigation.launch
-
-# Terminal 3: (Optional) Start point cloud saver
-roslaunch pcd_saver pcd_saver.launch
-```
 
 ### Mission Planning
 1. Connect drone via USB or telemetry link to QGroundControl
@@ -195,37 +178,5 @@ This project builds upon:
 
 **Last Updated**: December 2025  
 **Repository**: [Labeeb1234/px4_drone](https://github.com/Labeeb1234/px4_drone)  
-**Language**: C++  
+**Language**: C/C++
 **Status**: Active Development
-
-
-
-<!-- ## Autonomous Drone
-- Hardware used is : S500 Frame with components in a kit
-- Weight of the entire drone with all the drone components and offboard computational boards: 2.0kg
-
-# Note: Tested on ROS Noetic on Ubuntu 20.04 (Focal Fossa)
-
-
-
-## ======================================================================
-## Spatial-LM Implementation using realsense d435(i)
-
-- Point Cloud Understanding LLM model, basically an object detection and understanding on processed point cloud data.
-- Understand spatial layouts and relationships using language
-- more info [here](https://huggingface.co/manycore-research/SpatialLM-Llama-1B)
-
-## ======================================================================
-
-## ====================================================================================================
-# PX4-Autpilot and QGC(Drone Mission GUI) setup
-## ==========================================================================================
-# Drone Navigation Experiments
-# Using 3DVFH+* Local Planner for obstacle avoidance and path replanning
-
-- Demo Video (navigation using 3dvfh+* local planner)
- 
-   https://github.com/user-attachments/assets/145122ba-c00e-4088-ba6d-17a987c4e463
-
-- The 3DVFH+* local planner repo is taken from this repo "https://github.com/PX4/PX4 Avoidance" follow the steps in this repo for installation.
--- >
