@@ -3,7 +3,6 @@
 An open-source testing and development package for autonomous drone systems with advanced obstacle avoidance, path planning, and spatial understanding capabilities.
 
 - currently undergoing both hardware (due to some unforseen outcomes in the previous tests) and software updates (porting to ROS2 and structuring the different coms architecture)
-
   <div>
    <img src="https://github.com/user-attachments/assets/097cda33-6b2d-4e2c-8537-0c06e108bddf" alt="Quadcoptor-Hardware" height="480" width="640"/>
   </div>
@@ -62,7 +61,6 @@ This repository contains a complete autonomous drone system built on the PX4 aut
 ## System Arch And Software Testing (TBC)
 
 - Test system arch (high level)
- 
   <div>
    <img src="https://github.com/user-attachments/assets/cdab23c8-f234-4a42-ae05-5ee896728bf7" alt="High-Level-Architecture" />
   </div>
@@ -76,6 +74,7 @@ This repository contains a complete autonomous drone system built on the PX4 aut
 
 
 ### Required Dependencies
+
 - Install ubuntu mate (ver:22.04) a mimimal ubuntu desktop type OS optimized for raspi
 - For Mavlink installation refer [this](https://mavlink.io/en/getting_started/installation.html); I used the C library (mavlink 2 version) for testing and understanding but there are versions of mavlink framwork for many other languages too check the doc. For mavlink2_c use this [doc](https://github.com/mavlink/c_uart_interface_example/blob/master/autopilot_interface.cpp#L596) to learning about the APIs
 - Install ROS2-Humble (follow doc) same steps work for ARM64 systems too.
@@ -87,14 +86,13 @@ This repository contains a complete autonomous drone system built on the PX4 aut
 
 ## Installation & Setup
 
-
 ### 3. PX4 Autopilot Setup
 Follow the installation guide at [PX4 Avoidance](https://github.com/PX4/PX4-Avoidance) to set up the 3DVFH+* local planner.
 
 ### 4. QGroundControl Setup
 Download and install [QGroundControl](http://qgroundcontrol.com/) for mission planning and drone configuration.
 
-## Usage
+<!-- ## Usage
 
 ### Launch the Navigation Stack
 
@@ -187,9 +185,8 @@ This project builds upon:
 - [Fast-Planner](https://github.com/HKUST-Aerial-Robotics/Fast-Planner) - Trajectory optimization
 - [SpatialLM](https://huggingface.co/manycore-research/SpatialLM-Llama-1B) - Spatial understanding
 
----
+--- -->
 
-**Last Updated**: December 2025  
-**Repository**: [Labeeb1234/px4_drone](https://github.com/Labeeb1234/px4_drone)  
-**Language**: C/C++
+**Last Updated**: Feb 2026  
+**Repository**: [Labeeb1234/px4_drone](https://github.com/Labeeb1234/px4_drone)
 **Status**: Active Development
