@@ -25,7 +25,16 @@ This repository contains a complete autonomous drone system built on the PX4 aut
 - **Depth Camera**: RealSense D435(i)
 
 
+## Hardware setup process
 
+- Finished the sensor, radio, actuator, battery voltage, ESC, safety configuration and setups
+- RC transmitter and receiver binding process (find online very common stuff) {out model: Flysky FS-i6X is a budget-friendly 10-channel 2.4GHz AFHDS 2A radio transmitter}
+- Currently tuning the hardware on testing: (Disable MC_AIR_MODE on tuning to prevent take-off threshold from forcing too high of a throttle; renable after tuning though)
+  - Pre-Tuning flight check (done flight is stable enough in RC-mode to be satisfied with auto-tuning of the main two controllers) 
+  - PID tuning of rate and altitude controllers (auto tuning them in stabilize or altitude mode)  
+  - Velocity and Position controller tuning (done manually in position mode mostly)
+
+  
 ## Key Features
 
 <!-- ### 🚁 Autonomous Navigation
