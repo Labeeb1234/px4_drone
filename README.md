@@ -97,7 +97,7 @@ Download and install [QGroundControl](http://qgroundcontrol.com/) for mission pl
 ### Simulation
 
 
-### Mission Planning
+### Hardware Mission Planning
 1. Connect drone via USB or telemetry link to QGroundControl
 2. Plan mission waypoints in QGC interface
 3. Upload mission to drone
