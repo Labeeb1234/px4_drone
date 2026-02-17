@@ -101,7 +101,7 @@ Download and install [QGroundControl](http://qgroundcontrol.com/) for mission pl
 4. Arm and start autonomous flight
 
 - The above structure to plan global paths for the drone navigation remains the same
-- Faced an **issue: 'Terrain Following feature not working, when the Height reference param was set to the connected periferal distance sensor the GPS was alwasys locked preventing Mission Planning and navigation'** --> **reason found: Incompatiblility of autopilot version installed in the pixhawk-6C model FCU, we downgraded to 1.14.3 from 1.16.0(latest of 2026) and the issue was resolved**
+- Faced an **issue: 'Terrain Following feature not working, when the height reference param(EKF2_HGT_REF) was set to the connected periferal distance sensor the GPS was alwasys locked preventing Mission Planning and navigation'** --> **reason found: Incompatiblility of autopilot version installed in the pixhawk-6C model FCU, we downgraded to 1.14.3 from 1.16.0(latest of 2026) and the issue was resolved**
 - Both normal navigation and terrain following enabled navigation worked without any issues (no obstacle avoidance integrated yet)
 
 **currently waiting to get new power supply to power the on-board raspi for running the avoidance algorithms and realsense RGB-D cam for proper navigation pipeline completion**
