@@ -96,6 +96,7 @@ Download and install [QGroundControl](http://qgroundcontrol.com/) for mission pl
 
 ### Simulation
 
+- A portion of a fork from 'PX4-Autopilot' repo is uploaded here in this repo for personal uses (may or may not be useful) [here]() 
 
 ### Hardware Mission Planning
 1. Connect drone via USB or telemetry link to QGroundControl
