@@ -36,7 +36,7 @@ This repository contains a complete autonomous drone system built on the PX4 aut
   - Pre-Tuning flight check (done flight is stable enough in RC-mode to be satisfied with auto-tuning of the main two controllers) 
   - PID tuning of rate and altitude controllers (auto tuning them in stabilize or altitude mode)  
   - Velocity and Position controller tuning (done manually in position mode mostly)
-
+- Twisting paired signal wirings (ESC motor contoller signal wirings) to reduce magnetic interference (need to verify if this even works, someone??)
   
 ## Key Features
 
@@ -92,15 +92,21 @@ Follow the installation guide at [PX4 Avoidance](https://github.com/PX4/PX4-Avoi
 ### 4. QGroundControl Setup
 Download and install [QGroundControl](http://qgroundcontrol.com/) for mission planning and drone configuration.
 
-<!-- ## Usage
-
-### Launch the Navigation Stack
+## Testings And Experimentation
 
 ### Mission Planning
 1. Connect drone via USB or telemetry link to QGroundControl
 2. Plan mission waypoints in QGC interface
 3. Upload mission to drone
 4. Arm and start autonomous flight
+
+- The above structure to plan global paths for the drone navigation remains the same
+- Faced an **issue: 'Terrain Following feature not working, when the Height reference param was set to the connected periferal distance sensor the GPS was alwasys locked preventing Mission Planning and navigation'** --> **reason found: Incompatiblility of autopilot version installed in the pixhawk-6C model FCU, we downgraded to 1.14.3 from 1.16.0(latest of 2026) and the issue was resolved**
+- Both normal navigation and terrain following enabled navigation worked without any issues (no obstacle avoidance integrated yet)
+
+**currently waiting to get new power supply to power the on-board raspi for running the avoidance algorithms and realsense RGB-D cam for proper navigation pipeline completion**
+
+<!-- ## Usage
 
 ### Point Cloud Processing
 ```bash
