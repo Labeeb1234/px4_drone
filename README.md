@@ -98,7 +98,7 @@ Download and install [QGroundControl](http://qgroundcontrol.com/) for mission pl
 
 - A portion of a fork from 'PX4-Autopilot' repo is uploaded here in this repo for personal uses (may or may not be useful) [here]()
 - For a quick sim testing and quick path planning test readiness, I directly bridged over the required gz topics and created the appropriate TF-broadcaster using the gz odom data using the ros_gz_bridge node
-- Note don't do the above yet for proper testing of the ROS2-PX4 integration pipeline, which need XRCE-DDS (microROS) ---> do this first which make the replication process for the hardware easy
+- Note don't do the above yet for proper testing of the ROS2-PX4 integration pipeline, which need XRCE-DDS (microROS) ---> do this first which make the replication process for the hardware easy (Done and verified this already working fine)
 
 ### Hardware Mission Planning
 1. Connect drone via USB or telemetry link to QGroundControl
