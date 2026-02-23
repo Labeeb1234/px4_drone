@@ -100,6 +100,16 @@ Download and install [QGroundControl](http://qgroundcontrol.com/) for mission pl
 - For a quick sim testing and quick path planning test readiness, I directly bridged over the required gz topics and created the appropriate TF-broadcaster using the gz odom data using the ros_gz_bridge node
 - Note don't do the above yet for proper testing of the ROS2-PX4 integration pipeline, which need XRCE-DDS (microROS) ---> do this first which make the replication process for the hardware easy (Done and verified this already working fine)
 
+- **Required CMDs (as of now subject to changes later on for simplicity)**
+```bash
+- make px4_sitl gz_x500_obs (to launch the custom env for x500 obstacle avoidance env launching)
+- ros2 launch sim_bridger gz_bridge.launch.py use_sim_time:=true (by default) (only launch for sim purposes only for bridging gz topics to ROS2)
+- ros2 run octomapping_test odom_tf_node (for odom->base_link tf)
+- ros2 launch octomapping_test octomapping.launch.py (for static base_link->cam_link tf and launching octomapping server for octomapping)
+```
+
+
+
 ### Hardware Mission Planning
 1. Connect drone via USB or telemetry link to QGroundControl
 2. Plan mission waypoints in QGC interface
