@@ -108,6 +108,7 @@ Download and install [QGroundControl](http://qgroundcontrol.com/) for mission pl
 - ros2 launch octomapping_test octomapping.launch.py (for static base_link->cam_link tf and launching octomapping server for octomapping)
 ```
 
+- **Note**: The static TFs are based on the dimensions of the X500 drone model dimensions specified in the sdf in the px4-autopilot pkg
 
 
 ### Hardware Mission Planning
