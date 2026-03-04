@@ -139,11 +139,21 @@ Download and install [QGroundControl](http://qgroundcontrol.com/) for mission pl
 - **Required CMDs (as of now subject to changes later on for simplicity)**
 ```bash
 export PX4_GZ_WORLD=open_world (this was created inside px4-autopilot pkg in the gz sim's world files named open_world.sdf)
-make px4_sitl gz_x500_obs (to launch the custom env for x500 obstacle avoidance env launching)
+```
+```bash
+make px4_sitl gz_x500_obs
+```
+```bash
 ros2 launch sim_bridger gz_bridge.launch.py use_sim_time:=true (by default) (only launch for sim purposes only for bridging gz topics to ROS2)
+```
+```bash
 ros2 run octomapping_test odom_tf_node (for odom->base_link tf)
+```
+```bash
 ros2 launch octomapping_test octomapping.launch.py (for static base_link->cam_link tf and launching octomapping server for octomapping)
 ```
+
+
 - **Note**: The static TFs are based on the dimensions of the X500 drone model dimensions specified in the sdf in the px4-autopilot pkg
 
 
