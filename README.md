@@ -107,9 +107,8 @@ Download and install [QGroundControl](http://qgroundcontrol.com/) for mission pl
 	  - Install the compatible version of librealsense2 SDK **from source** based on the firmware's compatible SDK version ranges (our case: SDK-v2.55.1)
 	  - Install the compatible version of the ROS2 realsense wrapper based on the ROS-DISTRO, linux OS version, realsense fm version & realsense-SDK version (our case: ROS2-Wrapper-v4.55.1)
     - Resource not available issue still persists, should I check OAK-D Lite on Raspi-4B to extract point cloud data with the DepthAI ros2 driver for stereo-cams.
-  - **With certain settings both RGB-frames and depth frames along with point cloud was extracted successfully though this is not always reliable, works only at lower res and FPS. (Higher FPS and res increases resource usage and power and leads to the warning mentioned below)
+  - **With certain settings both RGB-frames and depth frames along with point cloud was extracted successfully though this is not always reliable, works only at lower res and FPS. (Higher FPS and res increases resource usage and power and leads to the warning mentioned below)**
   - ```bash
-    - cmd to use
     ros2 launch realsense2_camera rs_launch.py enable_color:=true enable_depth:=true pointcloud.enable:=true rgb_camera.color_profile:=424x240x15 depth_module.depth_profile:=424x240x15 <or any   other valid profiles given below for both rgb and depth>
     ```
   - Working depth and color frame profiles:
