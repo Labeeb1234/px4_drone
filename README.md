@@ -107,26 +107,24 @@ Download and install [QGroundControl](http://qgroundcontrol.com/) for mission pl
 	  - Install the compatible version of librealsense2 SDK **from source** based on the firmware's compatible SDK version ranges (our case: SDK-v2.55.1)
 	  - Install the compatible version of the ROS2 realsense wrapper based on the ROS-DISTRO, linux OS version, realsense fm version & realsense-SDK version (our case: ROS2-Wrapper-v4.55.1)
     - Resource not available issue still persists, should I check OAK-D Lite on Raspi-4B to extract point cloud data with the DepthAI ros2 driver for stereo-cams.
-  - **With certain settings both RGB-frames and depth frames along with point cloud was extracted successfully though this is not always reliable, works only at lower res and FPS. (Higher FPS and res increases resource usage and power and leads to the warning mentioned below)**
-  - ```bash
-    ros2 launch realsense2_camera rs_launch.py enable_color:=true enable_depth:=true pointcloud.enable:=true rgb_camera.color_profile:=424x240x15 depth_module.depth_profile:=424x240x15 <or any   other valid profiles given below for both rgb and depth>
-    ```
-  - Working depth and color frame profiles:
-	  - 424x240,6
-	  - 424x240,15
-	  - 640x480,6 (higher power consumption doesn't work with powerbank)
+  	- **With certain settings both RGB-frames and depth frames along with point cloud was extracted successfully though this is not always reliable, works only at lower res and FPS. (Higher FPS and res increases resource usage and power and leads to the warning mentioned below)**
+  	- ```bash
+    	ros2 launch realsense2_camera rs_launch.py enable_color:=true enable_depth:=true pointcloud.enable:=true rgb_camera.color_profile:=424x240x15 depth_module.depth_profile:=424x240x15 <or any   other valid profiles given below for both rgb and depth>
+    	```
+  	- Working depth and color frame profiles:
+	  	- 424x240,6
+	  	- 424x240,15
+	  	- 640x480,6 (higher power consumption doesn't work with powerbank)
 
-  - **Note**: while building make sure to use the given build flags to prevent the node from getting interrupted due to errors , don't skip this flag **```
--DFORCE_RSUSB_BACKEND=true 
-
-  - ```bash
-  	  - 29/04 15:48:04,815 ERROR [281473063839968] (librealsense-exception.h:52) get_xu(...). xioctl(UVCIOC_CTRL_QUERY) failed Last Error: No such file or directory
-    ```
-  -  if the SDK was build with the required build flags under resource constrain the above msg will turn into a warning saying the below
-  - ```bash
+  	- **Note**: while building make sure to use the given build flags to prevent the node from getting interrupted due to errors , don't skip this flag **-DFORCE_RSUSB_BACKEND=true** 
+  	- ```bash
+  	  	- 29/04 15:48:04,815 ERROR [281473063839968] (librealsense-exception.h:52) get_xu(...). xioctl(UVCIOC_CTRL_QUERY) failed Last Error: No such file or directory
+    	```
+  	-  if the SDK was build with the required build flags under resource constrain the above msg will turn into a warning saying the below
+  	- ```bash
 	    - 15/02 15:14:43,719 WARNING [547764231968] (messenger-libusb.cpp:42) control_transfer returned error, index: 768, error: Resource temporarily unavailable, number: 11
-    ```
-
+    	```
+  	  
 ## Testings And Experimentation
 
 ### Simulation
