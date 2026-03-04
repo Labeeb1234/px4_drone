@@ -93,9 +93,12 @@ Follow the installation guide at [PX4 Avoidance](https://github.com/PX4/PX4-Avoi
 Download and install [QGroundControl](http://qgroundcontrol.com/) for mission planning and drone configuration.
 
 ### 5. Realsense SDK+ROS2 Wrapper setup on Raspi-4B Model
+
 - Kind of struggled with this due to really resource contraining while acessing both rgb,depth and point_cloud data from the realsense d435 device.
 - The entire process is documented below:-
+
   #### Installation of Realsense pkg on Raspi 4b (Ubuntu 22.04, ROS2-Humble,Iron)
+
     - For rapsi 4b model the D435 pkg, both SDK and ROS2 wrapper has to be installed from source or for any ARM arch system installation on any AMD systems its fine to install via binaries or other method w/o any issues or conflicts in the firmware.
     - [Realsense SDK](https://github.com/realsenseai/librealsense)  (install latest version)
     - [ROS2 Wrapper](https://github.com/realsenseai/realsense-ros)  (install either latest version or the compatible one with the sdk version)
