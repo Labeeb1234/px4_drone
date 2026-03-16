@@ -150,9 +150,13 @@ ros2 launch sim_bridger gz_bridge.launch.py use_sim_time:=true (by default) (onl
 ros2 run octomapping_test odom_tf_node (for odom->base_link tf)
 ```
 ```bash
-ros2 launch octomapping_test octomapping.launch.py (for static base_link->cam_link tf and launching octomapping server for octomapping)
+ros2 launch octomapping_test octomapping.launch.py start_mapping:=true (for static base_link->cam_link tf and launching octomapping server for octomapping)
 ```
 
+- Startup testing Demo
+	<div>
+		<img src="" alt="raw pc exploration"/>
+	</div>
 
 - **Note**: The static TFs are based on the dimensions of the X500 drone model dimensions specified in the sdf in the px4-autopilot pkg
 
