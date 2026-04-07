@@ -131,6 +131,7 @@ Download and install [QGroundControl](http://qgroundcontrol.com/) for mission pl
 ## Testings And Experimentation
 
 ### Simulation
+---
 
 - A portion of a fork from 'PX4-Autopilot' repo is uploaded here in this repo for personal uses (may or may not be useful) [here]()
 - For a quick sim testing and quick path planning test readiness, I directly bridged over the required gz topics and created the appropriate TF-broadcaster using the gz odom data using the ros_gz_bridge node
@@ -162,6 +163,8 @@ ros2 launch octomapping_test octomapping.launch.py start_mapping:=true (for stat
 
 
 ### Hardware Mission Planning
+---
+
 1. Connect drone via USB or telemetry link to QGroundControl
 2. Plan mission waypoints in QGC interface
 3. Upload mission to drone
@@ -170,8 +173,23 @@ ros2 launch octomapping_test octomapping.launch.py start_mapping:=true (for stat
 - The above structure to plan global paths for the drone navigation remains the same
 - Faced an **issue: 'Terrain Following feature not working, when the height reference param(EKF2_HGT_REF) was set to the connected periferal distance sensor the GPS was alwasys locked preventing Mission Planning and navigation'** --> **reason found: Incompatiblility of autopilot version installed in the pixhawk-6C model FCU, we downgraded to 1.14.3 from 1.16.0(latest of 2026) and the issue was resolved**
 - Both normal navigation and terrain following enabled navigation worked without any issues (no obstacle avoidance integrated yet)
+- Alternative setup for powering the on-board raspi for running the avoidance algorithms and realsense RGB-D cam for proper navigation pipeline completion done
 
-**currently waiting to get new power supply to power the on-board raspi for running the avoidance algorithms and realsense RGB-D cam for proper navigation pipeline completion**
+
+**Local Planner Implementation for obstacle avoidance and full autonomy**
+- Currently the local planner (3DVFH+*) codebase is getting ported over to ROS2 stack
+- The on-board raspi-4B running on backup Ubuntu 20.04 OS to test out the existing older navigation stack as a backup untill the above is completed
+- Note to self in the current setup the distance sensor is broken so the HGT_REF is the less acurate GPS so no terrain following is being implemented unitll the new sensors arrive
+- **Local Planner Implementation Process and Testing**
+  	**video demos here(one old and new one)**
+
+
+
+
+
+
+
+
 
 <!-- ## Usage
 
@@ -195,18 +213,8 @@ High-performance trajectory planning system for aggressive autonomous flight:
 
 See [fuel_planner/README.md](fuel_planner/exploration_manager/README.md) for detailed documentation.
 
-### Local Planner
-Real-time obstacle avoidance using 3DVFH+* algorithm:
-- Dynamic reconfigurable parameters
-- Depth sensor integration
-- Velocity command generation
-- Safety constraints enforcement
 
-### Avoidance Module
-Collision prevention system integrating with PX4 autopilot:
-- Real-time threat detection
-- Emergency maneuvering
-- Failsafe protocols
+
 
 ### Point Cloud Saver
 Data capture utility for offline analysis:
@@ -224,42 +232,19 @@ This project includes [SpatialLM](https://huggingface.co/manycore-research/Spati
 - Natural language spatial queries
 - Scene interpretation for autonomous decision-making
 
-## Video Demonstrations
 
-Check out the navigation system in action:
-- [3DVFH+* Local Planner Demo](https://github.com/Labeeb1234/px4_drone)
 
-## Configuration
 
-Key configuration files are located in `fuel_planner/plan_manage/config/`:
 
-- `simulation.launch` - Simulation parameters
-- `kino_algorithm.xml` - Kinodynamic planner settings
-- `realsense.launch` - Depth camera configuration
 
-Adjust these parameters based on your hardware and environment. 
-
-## Troubleshooting
-
-**Issue**: Drone not responding to commands
-- Solution: Check USB connection, verify baud rate, restart autopilot
-
-**Issue**: Poor obstacle detection
-- Solution: Check camera calibration, ensure adequate lighting, verify depth sensor connection
-
-**Issue**: Slow trajectory generation
-- Solution: Reduce map resolution, enable GPU acceleration, optimize downsampling parameters
-
+--- -->
 
 ## References & Attribution
 
 This project builds upon:
-- [PX4 Avoidance](https://github.com/PX4/PX4-Avoidance) - 3DVFH+* implementation
-- [Fast-Planner](https://github.com/HKUST-Aerial-Robotics/Fast-Planner) - Trajectory optimization
-- [SpatialLM](https://huggingface.co/manycore-research/SpatialLM-Llama-1B) - Spatial understanding
+- [PX4 Avoidance](https://github.com/PX4/PX4-Avoidance) - 3DVFH+* implementation (hardware tested local planner only)
+- [Fast-Planner](https://github.com/HKUST-Aerial-Robotics/Fast-Planner) - Trajectory optimization (only simulation as of now)
 
---- -->
-
-**Last Updated**: Feb 2026  
+**Last Updated**: April 2026 
 **Repository**: [Labeeb1234/px4_drone](https://github.com/Labeeb1234/px4_drone)
 **Status**: Active Development
