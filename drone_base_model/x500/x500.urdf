@@ -1,0 +1,192 @@
+<?xml version="1.0"?>
+<robot name="x500">
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0 0 0"/>
+      <mass value="2.0"/>
+      <inertia ixx="0.02166666666666667" ixy="0" ixz="0"
+               iyy="0.02166666666666667" iyz="0"
+               izz="0.04000000000000001"/>
+    </inertial>
+
+    <visual>
+      <origin xyz="0 0 0.025" rpy="0 0 3.141592654"/>
+      <geometry>
+        <mesh filename="meshes/nxp_hgd_cf.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0.174 0.174 0.032" rpy="0 0 -0.45"/>
+      <geometry>
+        <mesh filename="meshes/base_5010.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="-0.174 0.174 0.032" rpy="0 0 -0.45"/>
+      <geometry>
+        <mesh filename="meshes/base_5010.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0.174 -0.174 0.032" rpy="0 0 -0.45"/>
+      <geometry>
+        <mesh filename="meshes/base_5010.dae" scale="1.0 1.0 1.0" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="-0.174 -0.174 0.032" rpy="0 0 -0.45"/>
+      <geometry>
+        <mesh filename="meshes/base_5010.dae" scale="1.0 1.0 1.0" />
+      </geometry>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0.007"/>
+      <geometry>
+        <box size="0.35355339059327373 0.35355339059327373 0.05"/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 -0.098 -0.123" rpy="-0.35 0 0"/>
+      <geometry>
+        <box size="0.015 0.015 0.21"/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0.098 -0.123" rpy="0.35 0 0"/>
+      <geometry>
+        <box size="0.015 0.015 0.21"/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 -0.132 -0.2195"/>
+      <geometry>
+        <box size="0.25 0.015 0.015"/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0.132 -0.2195"/>
+      <geometry>
+        <box size="0.25 0.015 0.015"/>
+      </geometry>
+    </collision>
+  </link>
+
+	<link name="rotor_0">
+    <inertial>
+      <mass value="0.016076923076923075"/>
+      <inertia ixx="3.8464910483993325e-07"
+               iyy="2.6115851691700804e-05"
+               izz="2.649858234714004e-05"
+							 ixy="0.0"
+							 ixz="0.0"
+							 iyz="0.0"/>
+    </inertial>
+    <visual>
+      <origin xyz="-0.022 -0.14638461538461536 -0.016"/>
+      <geometry>
+        <mesh filename="meshes/prop_ccw_1345.stl" scale="0.8461538461538461 0.8461538461538461 0.8461538461538461"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.2792307692307692 0.016923076923076923 0.0008461538461538462"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="rotor_0_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="rotor_0"/>
+    <origin xyz="0.174 -0.174 0.06"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <link name="rotor_1">
+    <inertial>
+      <mass value="0.016076923076923075"/>
+      <inertia ixx="3.8464910483993325e-07"
+               iyy="2.6115851691700804e-05"
+               izz="2.649858234714004e-05"
+							 ixy="0.0"
+							 ixz="0.0"
+							 iyz="0.0"/>
+    </inertial>
+    <visual>
+      <origin xyz="-0.022 -0.14638461538461536 -0.016"/>
+      <geometry>
+        <mesh filename="meshes/prop_ccw_1345.stl" scale="0.8461538461538461 0.8461538461538461 0.8461538461538461"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.2792307692307692 0.016923076923076923 0.0008461538461538462"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="rotor_1_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="rotor_1"/>
+    <origin xyz="-0.174 0.174 0.06"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <link name="rotor_2">
+    <inertial>
+      <mass value="0.016076923076923075"/>
+      <inertia ixx="3.8464910483993325e-07"
+               iyy="2.6115851691700804e-05"
+               izz="2.649858234714004e-05"
+							 ixy="0.0"
+							 ixz="0.0"
+							 iyz="0.0"/>
+    </inertial>
+    <visual>
+      <origin xyz="-0.022 -0.14638461538461536 -0.016"/>
+      <geometry>
+        <mesh filename="meshes/prop_cw_1345.stl" scale="0.8461538461538461 0.8461538461538461 0.8461538461538461"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.2792307692307692 0.016923076923076923 0.0008461538461538462"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="rotor_2_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="rotor_2"/>
+    <origin xyz="0.174 0.174 0.06"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+
+  <link name="rotor_3">
+    <inertial>
+      <mass value="0.016076923076923075"/>
+      <inertia ixx="3.8464910483993325e-07"
+               iyy="2.6115851691700804e-05"
+               izz="2.649858234714004e-05"
+							 ixy="0.0"
+							 ixz="0.0"
+							 iyz="0.0"/>
+    </inertial>
+    <visual>
+      <origin xyz="-0.022 -0.14638461538461536 -0.016"/>
+      <geometry>
+        <mesh filename="meshes/prop_cw_1345.stl" scale="0.8461538461538461 0.8461538461538461 0.8461538461538461"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.2792307692307692 0.016923076923076923 0.0008461538461538462"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="rotor_3_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="rotor_3"/>
+    <origin xyz="-0.174 -0.174 0.06"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+</robot>
