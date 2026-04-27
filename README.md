@@ -40,23 +40,11 @@ This repository contains a complete autonomous drone system built on the PX4 aut
   
 ## Key Features
 
-<!-- ### 🚁 Autonomous Navigation
+### 🚁 Autonomous Navigation
 - **3DVFH+* Local Planner**: Advanced obstacle avoidance and dynamic path replanning
 - **Fuel Planner**: Fast trajectory generation for agile autonomous flight
 - **Real-time Processing**: High-quality trajectory outputs within milliseconds
 - **Unknown Environment Support**: Fully autonomous flight in cluttered, dynamic environments
-
-### 🧠 Spatial Understanding
-- **SpatialLM Integration**: Point cloud understanding using LLM models
-- **Object Detection**: Advanced perception on processed point cloud data
-- **Semantic Navigation**: Understand spatial layouts and relationships using natural language
-- **RealSense D435(i) Support**: Integrated depth camera processing
-
-### 📊 Perception & Planning Modules
-- **Point Cloud Processing**: `pcd_saver` - Capture and save point cloud data
-- **Exploration Management**: `fuel_planner/exploration_manager` - Autonomous exploration strategies
-- **Local Planning**: `local_planner` - Real-time obstacle avoidance
-- **Avoidance Systems**: `avoidance` - Advanced collision avoidance algorithms -->
 
 ## System Arch And Software Testing (TBC)
 
@@ -153,6 +141,10 @@ ros2 run octomapping_test odom_tf_node (for odom->base_link tf)
 ```bash
 ros2 launch octomapping_test octomapping.launch.py start_mapping:=true (for static base_link->cam_link tf and launching octomapping server for octomapping)
 ```
+- replacing the ros2 middleware layer with mavros-ros2 instead of uxrce-DDS. Link to [mavros-ros2](https://github.com/mavlink/mavros)
+```bash
+ros2 launch mavros node.launch fcu_url:="udp://:14540@localhost:14557" gcs_url:="udp://@127.0.0.1:14550" tgt_system:=1 tgt_component:=1 config_yaml:=/home/inlabust/labeeb/drone_isaacsim/drone_ws/src/config/px4_config.yaml
+```
 
 - Startup testing Demo
 	<div>
@@ -181,6 +173,7 @@ ros2 launch octomapping_test octomapping.launch.py start_mapping:=true (for stat
 - The on-board raspi-4B running on backup Ubuntu 20.04 OS to test out the existing older navigation stack as a backup untill the above is completed
 - Note to self in the current setup the distance sensor is broken so the HGT_REF is the less acurate GPS so no terrain following is being implemented unitll the new sensors arrive
 - **Local Planner Implementation Process and Testing**
+
   	**video demos here(one old and new one)**
 
 
@@ -188,42 +181,12 @@ ros2 launch octomapping_test octomapping.launch.py start_mapping:=true (for stat
 
 
 
-
-
+ <!-- <img width="1920" height="1080" alt="orbslam3_results" src="https://github.com/user-attachments/assets/90919495-7e59-4c33-be74-5f4f26a43029" />
+<img width="1920" height="1080" alt="orb_slam3_results2" src="https://github.com/user-attachments/assets/67f3778f-4d3b-49a9-b7b2-4024b31f03f9" /> -->
+<!-- img width="600" height="800" alt="drone_circuit_diagram" src="https://github.com/user-attachments/assets/9492220b-0158-4ef2-a8fe-bdf910c42a64" /> -->
 
 <!-- ## Usage
-
-### Point Cloud Processing
-```bash
-# Capture and save point cloud data
-rosrun pcd_saver pcd_saver_node
-
-# Process with SpatialLM
-roslaunch spatial_lm spatial_lm.launch
-```
-
-## Module Documentation
-
-### Fuel Planner (Fast Planner)
-High-performance trajectory planning system for aggressive autonomous flight: 
-- Online mapping with depth images
-- Kinodynamic path searching (A* algorithm variant)
-- B-spline trajectory optimization
-- Heading/yaw angle planning
-
-See [fuel_planner/README.md](fuel_planner/exploration_manager/README.md) for detailed documentation.
-
-
-
-
-### Point Cloud Saver
-Data capture utility for offline analysis:
-- RealSense D435(i) integration
-- PCD format export
-- Timestamped logging
-
 ## Spatial LM Integration
-
 This project includes [SpatialLM](https://huggingface.co/manycore-research/SpatialLM-Llama-1B) - a point cloud understanding LLM model: 
 
 **Capabilities:**
@@ -231,11 +194,6 @@ This project includes [SpatialLM](https://huggingface.co/manycore-research/Spati
 - Spatial relationship understanding
 - Natural language spatial queries
 - Scene interpretation for autonomous decision-making
-
-
-
-
-
 
 --- -->
 
