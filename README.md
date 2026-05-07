@@ -63,7 +63,7 @@ This repository contains a complete autonomous drone system built on the PX4 aut
 
 ### Required Dependencies
 
-- Install Ubuntu Mate (version: 22.04), a mimimal Ubuntu desktop type OS optimized for raspi
+- Install Ubuntu Mate (version: 22.04), a mimimal Ubuntu desktop type OS optimized for raspi. An ubuntu server version + Lubuntu GUI would also be more than fine for this
 - For Mavlink installation refer [this](https://mavlink.io/en/getting_started/installation.html); I used the C library (mavlink 2 version) for testing and understanding but there are versions of mavlink framwork for many other languages too check the doc. For mavlink2_c use this [doc](https://github.com/mavlink/c_uart_interface_example/blob/master/autopilot_interface.cpp#L596) to learning about the APIs
 - Install ROS2-Humble (follow doc) same steps work for ARM64 systems too.
 
