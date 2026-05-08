@@ -1,0 +1,55 @@
+<launch>
+    <arg name="ns" default="/"/>
+    <arg name="fcu_url" default="udp://:14540@localhost:14557"/>
+    <arg name="gcs_url" default="" />   <!-- GCS link is provided by SITL -->
+    <arg name="tgt_system" default="1" />
+    <arg name="tgt_component" default="1" />
+
+    <!-- Launch MavROS -->
+    <group ns="$(arg ns)">
+        <include file="$(find mavros)/launch/node.launch">
+            <arg name="pluginlists_yaml" value="$(find mavros)/launch/px4_pluginlists.yaml" />
+            <!-- Need to change the config file to get the tf topic and get local position in terms of local origin -->
+            <arg name="config_yaml" value="$(find local_planner)/resource/px4_config.yaml" />
+            <arg name="fcu_url" value="$(arg fcu_url)" />
+            <arg name="gcs_url" value="$(arg gcs_url)" />
+            <arg name="tgt_system" value="$(arg tgt_system)" />
+            <arg name="tgt_component" value="$(arg tgt_component)" />
+        </include>
+    </group>
+
+    <!-- Launch cameras -->
+    <!-- Launch avoidance -->
+    <env name="ROSCONSOLE_CONFIG_FILE" value="$(find local_planner)/resource/custom_rosconsole.conf"/>
+    <arg name="pointcloud_topics" default="[]"/>
+
+   <!-- <node name="local_planner_node" pkg="local_planner" type="local_planner_node" output="screen" required="true" > -->
+    <arg name="manager" default="local_planner_manager"/>
+    <node pkg="nodelet" type="nodelet" name="$(arg manager)" args="manager" output="screen"/>
+    <node pkg="nodelet" type="nodelet" name="local_planner_nodelet" args="load LocalPlannerNodelet $(arg manager)" output="screen">
+      <param name="goal_x_param" value="0.0"/>
+      <param name="goal_y_param" value="0.0"/>
+      <param name="goal_z_param" value="0.0" />
+      <rosparam param="pointcloud_topics" subst_value="True">$(arg pointcloud_topics)</rosparam>
+    </node>
+    
+    <!-- set or toggle rqt parameters -->
+    <node name="rqt_param_toggle" pkg="local_planner" type="rqt_param_toggle.sh" />
+
+    <!-- Realsense Node launch -->
+    <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+        <arg name="initial_reset" value="true"/>
+        <arg name="enable_color" value="true"/>
+        <arg name="enable_depth" value="true"/>
+        <arg name="enable_pointcloud" value="true"/>
+        <arg name="color_width" value="424"/>
+        <arg name="color_height" value="240"/>
+        <arg name="color_fps" value="15"/>
+        <arg name="depth_width" value="424"/>
+        <arg name="depth_height" value="240"/>
+        <arg name="depth_fps" value="15"/>        
+    </include>
+    <node name="static_tf" pkg="tf" type="static_transform_publisher" output="screen" required="true" args="0.14 0.0 0.09 0.0 0.0 0.0 1.0 fcu camera_link 10"/>
+   <node pkg ="rosbag" type="record" name ="drone_bag" output="screen" args="-o /home/drone/rosbags/flight1.bag /local_pointcloud /goal_position /mavros/state /mavros/local_position/pose /cmd_vel /tf /mavros/mission/waypoints /mavros/altitude /move_base_simple/goal" />
+   <!-- <node pkg ="rosbag" type="record" name ="drone_bag" output="screen" args="-o /home/drone/rosbags/flight1.bag /local_pointcloud /camera/depth/color/points /tf" /> -->
+</launch>
