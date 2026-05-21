@@ -11,6 +11,8 @@ set(dependencies
   nav_msgs
   tf2
   tf2_ros
+  px4_msgs
+  Eigen3
 )
 
 # find dependencies
@@ -26,6 +28,10 @@ ament_target_dependencies(odom_tf_node
   nav_msgs
   tf2
   tf2_ros
+  px4_msgs
+)
+target_link_libraries(odom_tf_node
+  Eigen3::Eigen
 )
 
 install(
@@ -51,6 +57,7 @@ install(
   DIRECTORY
     launch
     config
+    rviz
   DESTINATION
     share/${PROJECT_NAME}
 )

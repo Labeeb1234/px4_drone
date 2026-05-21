@@ -1,17 +1,33 @@
+from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch_ros.actions import Node
 from launch.actions import DeclareLaunchArgument
-from launch.substitutions import LaunchConfiguration
+from launch.substitutions import LaunchConfiguration, PythonExpression
+from launch.conditions import IfCondition
+import os
 
 def generate_launch_description():
+    share_dir = get_package_share_directory("octomapping_test")
+    rviz_config_file = os.path.join(share_dir, "rviz/octomap.rviz")
 
     use_sim_time_arg = DeclareLaunchArgument(
         "use_sim_time",
-        default_value="true",
+        default_value="True",
         description="Whether to use simulation time or not"
+    )
+    start_rviz_arg = DeclareLaunchArgument(
+        "rviz",
+        default_value="false",
+        description="whether to launch rviz or not"
+    )
+    start_mapping_arg = DeclareLaunchArgument(
+        "start_mapping",
+        default_value="true",
+        description="whether to start octomapping pkg or not"
     )
 
     octomapping_node = Node(
+        condition=IfCondition(LaunchConfiguration("start_mapping")),
         package="octomap_server",
         executable="octomap_server_node",
         name="octomap_server",
@@ -19,9 +35,9 @@ def generate_launch_description():
         parameters=[{
             "use_sim_time": LaunchConfiguration("use_sim_time"),
 
-            "resolution": 0.05,
-            "frame_id": "x500_obs_0/OakD-Lite/base_link/StereoOV7251",
-            "base_frame_id": "x500_obs_0/base_footprint",
+            "resolution": 0.1,
+            "frame_id": "odom",
+            "base_frame_id": "x500_obs_0/OakD-Lite/base_link/StereoOV7251",
             
             "sensor_model.max_range": 40.0,
             "incremental_2D_projection": False,
@@ -35,7 +51,7 @@ def generate_launch_description():
             "pointcloud_min_z": -3.0,
             "pointcloud_max_z": 1.5,
         }],
-        remappings=[('cloud_in', 'cloud_registered')]
+        remappings=[('cloud_in', 'point_cloud')]
     )
 
 
@@ -75,10 +91,22 @@ def generate_launch_description():
         parameters=[{"use_sim_time": LaunchConfiguration("use_sim_time")}]
     )
 
+    start_rviz_cmd = Node(
+        condition=IfCondition(LaunchConfiguration("rviz")),
+        package='rviz2',
+        executable='rviz2',
+        name='rviz2',
+        arguments=['-d', rviz_config_file],
+        output='screen'
+    )
+
     ld = LaunchDescription()
     ld.add_action(use_sim_time_arg)
+    ld.add_action(start_rviz_arg)
+    ld.add_action(start_mapping_arg)
     ld.add_action(static_tf_broadcaster_depth_cam)
     ld.add_action(static_tf_broadcaster_rgb_cam)
     ld.add_action(octomapping_node)
+    ld.add_action(start_rviz_cmd)
 
     return ld

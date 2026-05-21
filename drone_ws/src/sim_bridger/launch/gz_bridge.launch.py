@@ -24,7 +24,7 @@ def generate_launch_description():
         name="ros_gz_bridge",
         output="screen",
         arguments=["--ros-args", '-p', f'config_file:={config_file_fp}'],
-        # parameters=[{"use_sim_time": LaunchConfiguration("use_sim_time")}]
+        parameters=[{"use_sim_time": LaunchConfiguration("use_sim_time")}]
     )
 
     # Bridging img topics
@@ -45,6 +45,7 @@ def generate_launch_description():
     )
 
     ld = LaunchDescription()
+    ld.add_action(use_sim_time_arg)
     ld.add_action(gz_ros_bridge_node)
     ld.add_action(timer_action1)
     return ld
