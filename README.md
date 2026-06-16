@@ -37,7 +37,12 @@ This repository contains a complete autonomous drone system built on the PX4 aut
   - PID tuning of rate and altitude controllers (auto tuning them in stabilize or altitude mode)  
   - Velocity and Position controller tuning (done manually in position mode mostly)
 - Twisting paired signal wirings (ESC motor contoller signal wirings) to reduce magnetic interference (need to verify if this even works, someone??)
-  
+
+## Holybro BLDC Datasheet
+
+- adding the link to the motor datasheet for reference [here](https://holybro.com/products/s500-v2-kit?srsltid=AfmBOooNo2GqstuS3P1Jer1Lx34sSjfZ8u3DfSPlWR1lDFyOI7afxVHW)
+
+
 ## Key Features
 
 ### 🚁 Autonomous Navigation
