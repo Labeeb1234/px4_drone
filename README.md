@@ -176,7 +176,8 @@ ros2 launch mavros node.launch fcu_url:="udp://:14540@localhost:14557" gcs_url:=
 **Local Planner Implementation for obstacle avoidance and full autonomy**
 - Currently the local planner (3DVFH+*) codebase is getting ported over to ROS2 stack
 - The on-board raspi-4B running on backup Ubuntu 20.04 OS to test out the existing older navigation stack as a backup untill the above is completed
-- Note to self in the current setup the distance sensor is broken so the HGT_REF is the less acurate GPS so no terrain following is being implemented unitll the new sensors arrive
+- Currently Dockerizing the entire px4-avoidance pipeline that was tested and working, (80% complete)
+  
 - **Local Planner Implementation Process and Testing**
 
   	**video demos here(one old and new one)**
