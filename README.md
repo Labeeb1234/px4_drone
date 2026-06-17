@@ -182,7 +182,15 @@ ros2 launch mavros node.launch fcu_url:="udp://:14540@localhost:14557" gcs_url:=
 
   	**video demos here(one old and new one)**
 
-
+- **Got a bit bored today so trying this**
+  [article/paper inside as article](https://mark-s-cleverley.medium.com/self-flying-drones-and-reinforcement-learning-dba670188c4c)
+	- Keeping everything simple and training RL policy in isaaclab PPO algo
+ 	- Main Task: Flight controller using RL policy/RL Drone controller
+  		- TO-DO List
+    		- Model (prep USD file) --> using the x500 drone frame used for testing the custom [px4_sitl-isaac bridge]()
+      		- Creating the Markov-Decision Problem/Env (MDP)
+        		- Env Setup Done
+          		- Create the "Reward Model Dense Model Required"  
 
 
 
