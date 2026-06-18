@@ -190,7 +190,8 @@ ros2 launch mavros node.launch fcu_url:="udp://:14540@localhost:14557" gcs_url:=
     		- Model (prep USD file) --> using the x500 drone frame used for testing the custom [px4_sitl-isaac bridge]()
       		- Creating the Markov-Decision Problem/Env (MDP)
         		- Env Setup Done
-          		- Create the "Reward Model Dense Model Required"  
+          		- Create the "Reward Model Dense Model Required": Initially for (takeoff to a fixed height and stabilization)
+            - May have to create custom force based action manager to simulate thrust force for propellers to lift the drone
 
 
 
