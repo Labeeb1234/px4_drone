@@ -191,7 +191,10 @@ ros2 launch mavros node.launch fcu_url:="udp://:14540@localhost:14557" gcs_url:=
       		- Creating the Markov-Decision Problem/Env (MDP)
         		- Env Setup Done
           		- Create the "Reward Model Dense Model Required": Initially for (takeoff to a fixed height and stabilization)
-            - May have to create custom force based action manager to simulate thrust force for propellers to lift the drone
+            - May have to create custom force based action manager to simulate thrust force and reaction torque for propellers to lift the drone based on rotor angular velocity (need to test)
+            	- the thrust force is simulated based on simple motor model using the thrust and torque constants and angular velocities of the drone motors
+             	- thrust force (upward always) torque rotation based on motor force cancellation for quadcoptors
+              	- (Note to self): use graphing calculators while designing dense reward models for RL tasks 
 
 
 
