@@ -196,6 +196,8 @@ ros2 launch mavros node.launch fcu_url:="udp://:14540@localhost:14557" gcs_url:=
              	- thrust force (upward always) torque rotation based on motor force cancellation for quadcoptors
               	- (Note to self): use graphing calculators while designing dense reward models for RL tasks
               	- First training: somewhat successfull at 1000th episode (made it train for even longer after that its on the ground basically)
+              	- 2nd training: takeoff and stable flight but not holding
+              	- 3rd training: same as 2nd training (need to put reward func for holding and pos holding)
 
 
 
