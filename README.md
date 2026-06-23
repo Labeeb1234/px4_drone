@@ -193,7 +193,8 @@ ros2 launch mavros node.launch fcu_url:="udp://:14540@localhost:14557" gcs_url:=
           		- Create the "Reward Model Dense Model Required": Initially for (takeoff to a fixed height and stabilization)
             - May have to create custom force based action manager to simulate thrust force and reaction torque for propellers to lift the drone based on rotor angular velocity (need to test)
             	- the thrust force is simulated based on simple motor model using the thrust and torque constants and angular velocities of the drone motors
-             		-[reference for drone motor dynamics modelling](https://medium.com/data-science/demystifying-drone-dynamics-ee98b1ba882f) --> note to self 
+             		-[reference for drone motor dynamics modelling](https://medium.com/data-science/demystifying-drone-dynamics-ee98b1ba882f) --> note to self
+               		- [another_note_to_self](https://andrew.gibiansky.com/downloads/pdf/Quadcopter%20Dynamics,%20Simulation,%20and%20Control.pdf)
              	- thrust force (upward always) torque rotation based on motor force cancellation for quadcoptors
               	- (Note to self): use graphing calculators while designing dense reward models for RL tasks
               	- First training: somewhat successfull at 1000th episode (made it train for even longer after that its on the ground basically)
