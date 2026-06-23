@@ -1,4 +1,4 @@
-# PX4 Drone - Autonomous Testing & Navigation Package
+# X4 Drone - Autonomous Testing & Navigation Package
 
 An open-source testing and development package for autonomous drone systems with advanced obstacle avoidance, path planning, and spatial understanding capabilities.
 
