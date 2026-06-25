@@ -19,16 +19,16 @@ An open-source testing and development package for autonomous drone systems with
                  	- [another_reference_paper](https://www.scitepress.org/Papers/2024/122963/122963.pdf) 
              	- thrust force (upward always) torque rotation based on motor force cancellation for quadcoptors
               	- (Note to self): use graphing calculators while designing dense reward models for RL tasks
-              	- First training: somewhat successfull at 1000th episode (made it train for even longer after that its on the ground basically)
-              	- 2nd training: takeoff and stable flight but not holding
-              	- 3rd training: same as 2nd training (need to put reward func for holding and pos holding)
-              	- 4th training: improved the reward structuring and weights (still not good enough drone just stubborn to takeoff now)
-              	- 5th training: added the "floor is lava" penalty to force drone off the ground (haven't added orientation stabilization reward yet)
+              	- 1st training: somewhat successfull at 1000th episode (made it train for even longer after that its on the ground basically) --> very unrealistic motor dynamics
+              	- 2nd training: takeoff and stable flight but not holding --> very unrealistic motor dynamics
+              	- 3rd training: same as 2nd training (need to put reward func for holding and pos holding) --> very unrealistic motor dynamics
+              	- 4th training: improved the reward structuring and weights (still not good enough drone just stubborn to takeoff now) --> very unrealistic motor dynamics
+              	- 5th training: added the "floor is lava" penalty to force drone off the ground (haven't added orientation stabilization reward yet) --> very unrealistic motor dynamics
               	  
               	- 6th training: toppiling termination and its penalty for angling to unsafe orientations
               		- Reward's {alt_rew, pos_tracking, floor_is_lava(clip value change)} --> weight changes 
 					- (PPO algo) horizon len, minibatch_size, num_envs {24,  24576, 1024}
-              		- actions clampped to [-1.0, 1.0] with scale 1.0 (**note to self**: for scale > 1.0 remove clamp)
+              		- actions clampped to [-1.0, 1.0] with scale 1.0
               	- 7th training
                  	- Reward's {alt_rew, pos_tracking, floor_is_lava(clip value change)} --> weight changes 
 					- (PPO algo) horizon len, minibatch_size, num_envs {24,  24576, 1024}
@@ -37,12 +37,15 @@ An open-source testing and development package for autonomous drone systems with
               	    - results recorded
 				- 8th training
               		- same condtions as 7th training but actions scale down by factor of 3.0
-                	- will need orientation stabilization reward condtion here
+                	- orientation stabilization reward condtion here
                  	- converged around 500 episodes and only got worse later on ---> taking back what I said after 100k episodes of accidental training it got way better, only small flucutations and vibrations at a fixed height now
-                    - improve pos reward params --> this can be done and trained once again
+                    - improve pos reward params --> this can be done and trained once again (increase std_dev param/sigma param)
                     - adding drone vel and ang vel reward/penalty terms (need to)
                     - maybe add dynamic reward weight changing using curriculum feature of isaaclab (next training setup)  
-
+				- 9th training
+      				- same param as 8th but pos reward params changed
+            		- altitude overshoot termination condition
+                	- no dynamic reward weight changing yet!  
 
 **Last Updated**: Jun 2026 
 **Repository**: [Labeeb1234/px4_drone](https://github.com/Labeeb1234/px4_drone) branch <feat/rl_quadcoptor_controller>
