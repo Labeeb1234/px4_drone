@@ -43,7 +43,7 @@ class ActionsCfg:
     '''
     rotor_actions = mdp.RotorForceActionCfg(
         asset_name="drone", 
-        scale=1.0
+        scale=3.0
     )
     # joint_actions = mdp.JointEffortActionCfg(
     #     asset_name="drone",
@@ -80,6 +80,14 @@ class ObservationsCfg:
             params={"asset_cfg": SceneEntityCfg("drone")}
         )
 
+
+        # pre-defined ones down here
+        # last action states (testable)
+        last_agent_action = ObsTerm(
+            func=mdp.last_action,
+            params={"action_name": "rotor_actions"}
+        )
+
         def __post_init__(self):
             self.enable_corruption = False # to add noise to feedback/observation data
             self.concatenate_terms = True
@@ -92,52 +100,65 @@ class RewardCfg:
     ''' The required task is takeoff to required fixed target height and also stablize '''
 
     # -------------------------------------------------------
-    # level drone objective
-    smooth_level_drone_reward = RewTerm(
-        func=cmdp.level_drone_exp_l2,
-        weight=0.1,
-        params={
-            "asset_cfg": SceneEntityCfg("drone"),
-            "sigma": 0.6
-        }
-    )
 
-    # pos(x,y) tracking reward/penalty
+    # (3) pos(x,y) tracking reward/penalty
     pos_tracking_reward = RewTerm(
         func=cmdp.pos_prog_exp_l2,
-        weight=0.0,
+        weight=0.5,
         params={
             "asset_cfg": SceneEntityCfg("drone"),
             "sigma": 2.0
         }
     )
-    # takeoff/altitude rewarding/penalty
+    # (1) takeoff/altitude rewarding/penalty
     altitude_reward = RewTerm(
         func=cmdp.altitude_exp_l2,
-        weight=1.0, # rew_term
+        weight=5.0, # rew_term
         params={
             "asset_cfg": SceneEntityCfg("drone"),
             "sigma": 8.0
+        }
+    )
+    # (2) floor is lava reward
+    floor_is_lava = RewTerm(
+        func=cmdp.ground_penalty_l2,
+        weight=1.0,
+        params={
+            "asset_cfg": SceneEntityCfg("drone"),
+            "drone_ground_clearance": 0.4540 # in [m]
+        }
+    )
+
+    # (4) level drone objective
+    smooth_level_drone_reward = RewTerm(
+        func=cmdp.level_drone_exp_l2,
+        weight=0.5,
+        params={
+            "asset_cfg": SceneEntityCfg("drone"),
+            "sigma": 0.8
         }
     )
     # -------------------------------------------------------
     
     # pre-existing reward/penalty terms
     # penalty for just existing
+    termination_penalty = RewTerm(
+        func=mdp.is_terminated,
+        weight=-20.0
+    )
     alive_penalty = RewTerm(
         func=mdp.is_alive,
-        weight=-0.1
-    )
+        weight=0.0
+    ) # small incentive for being alive
     # action penalties
     action_rate_penalty = RewTerm(
         func=mdp.action_rate_l2,
-        weight=-0.00001
+        weight=-0.0
     )
     action_penalty = RewTerm(
         func=mdp.action_l2,
-        weight=-0.0001
+        weight=-0.0
     )
-
 
 
 # event handle cfg
@@ -155,8 +176,11 @@ class EventCfg:
 class TerminationCfg:
     # reset on timeout
     time_out = DoneTerm(func=mdp.time_out, time_out=False)
-    # reset on null space encounter (from custom mdp) (need to add)
-
+    # reset on toppling to unsafe drone orientations
+    toppling_time_out = DoneTerm(
+        func=cmdp.terminate_on_topple,
+        params={"asset_cfg": SceneEntityCfg("drone")}
+    )
 
 
 @configclass
