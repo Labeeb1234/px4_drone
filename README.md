@@ -46,8 +46,10 @@ An open-source testing and development package for autonomous drone systems with
       				- same param as 8th but pos reward params changed
             		- altitude overshoot termination condition
                 	- no dynamic reward weight changing yet!
-                 	- doing this training using the last trained weights of 8th training iteration
-                  	- I think I might have accidently trained it to go to pose :/  
+                 	- doing this training using the last trained weights of 8th training iteration  ---> maybe best to train from scratch
+                  	- I think I might have accidently trained it to go to pose :/
+				- 10th training
+            		- all params and settings same as 8th training iteration 
 
 **Last Updated**: Jun 2026 
 **Repository**: [Labeeb1234/px4_drone](https://github.com/Labeeb1234/px4_drone) branch <feat/rl_quadcoptor_controller>
