@@ -50,11 +50,12 @@ An open-source testing and development package for autonomous drone systems with
                   	- I think I might have accidently trained it to go to pose :/
 				- 10th training
             		- all params and settings same as 8th training iteration
+              		- within 1200+ episodes of training   
               		- this is it mate, takeoff to given height and hover, albeit undesireable vibrations the required task was learnt
                 	- Next training iteration need to add penalty/reward for linear and angular velocities
                 - 11th training
                 	- all params of 10th training iterations
-                 	- update termination conditions for x-y plane too (x-y plane bounds)     
+                 	- update termination conditions for x-y plane too (x-y plane bounds)  
 
 **Last Updated**: Jun 2026 
 **Repository**: [Labeeb1234/px4_drone](https://github.com/Labeeb1234/px4_drone) branch <feat/rl_quadcoptor_controller>
