@@ -24,17 +24,22 @@ class RotorForceAction(ActionTerm):
     _clip: torch.Tensor
     _kf: float
     _km: float
-    _motor_time_constant: float = 0.05
+    _motor_time_constant: float
 
 
     def __init__(self, cfg, env):
         super().__init__(cfg, env)
         self._rotor_ids, self._rotor_names = self._asset.find_bodies(self.cfg.rotor_names)
+        self._joint_ids, self._rotor_joints = self._asset.find_joints(self.cfg.joint_names)
         self._num_rotors = len(self._rotor_ids)
+        self._num_joints = len(self._joint_ids)
+
+        # joint-rotor mismatch check
+        if self._num_rotors != self._num_joints:
+            raise ValueError(f"number of rotor body links and revolute joints should be the same")
         
         # actuator desired setpoints storage params
         self.actuator_setpoint = torch.zeros(self.num_envs, 4, device=self.device)
-
         # rotor_ids[0,3] --> (CCW) and rotor_ids[1,2] --> (CW)
         self._rotor_dirs = torch.tensor([1.0, -1.0, -1.0, 1.0], device=self.device) # hardcoding these axes dirs of rotors for now
         # log the resolved joint names for debugging
@@ -87,6 +92,7 @@ class RotorForceAction(ActionTerm):
         self._omega_max = float(self.cfg.omega_max)
         self._kf = float(self.cfg.thrust_coefficient)
         self._km = float(self.cfg.moment_coefficient)
+        self._motor_time_constant = float(self.cfg.motor_time_constant)
         # sanity checks
         if self._omega_max <= 0.0:
             raise ValueError(
@@ -100,11 +106,16 @@ class RotorForceAction(ActionTerm):
             raise ValueError(
                 f"moment_coefficient must be >= 0. Received {self._km}"
             )
+        if self._motor_time_constant < 0.0:
+            raise ValueError(
+                f"motor time constant must always be some positive value. Received {self._motor_time_constant}"
+            )
         omni.log.info(
             f"[{self.__class__.__name__}] "
             f"omega_max={self._omega_max:.3f} rad/s, "
             f"kf={self._kf:.3e}, "
-            f"km={self._km:.3e}"
+            f"km={self._km:.3e},"
+            f"tau={self._motor_time_constant}"
         )
 
 
@@ -138,12 +149,13 @@ class RotorForceAction(ActionTerm):
         ''' logic to apply force and torque actions to the rotor body links to simulate thrust due to rotating rotors'''
         forces = torch.zeros((self.num_envs, self._num_rotors, 3), device=self.device)
         torques = torch.zeros_like(forces)
-        rotor_thrust, rotor_torque = self._compute_dynamics(self.processed_actions)
+        rotor_thrust, rotor_torque, rotor_omega = self._compute_dynamics(self.processed_actions)
         forces[:, :, 2] = rotor_thrust
         torques[:, :, 2] = rotor_torque
-        # print(f"rotor thrust: {forces}")
+        # print(f"\nrotor thrust: {forces}")
         # print(f"rotor_torque: {torques}\n")
         # apply force and torque to the body links
+        # self._asset.set_joint_velocity_target(target=rotor_omega, joint_ids=self._rotor_ids)
         self._asset.set_external_force_and_torque(forces=forces, torques=torques, body_ids=self._rotor_ids) # applied in local frame of ref (body frame)
 
     def reset(self, env_ids: Sequence[int] | None = None) -> None:
@@ -164,14 +176,15 @@ class RotorForceAction(ActionTerm):
         omega_max = self._omega_max
         # first-order motor lag
         tau = torch.clamp(torch.tensor(self._env.physics_dt / self._motor_time_constant, device=self.device), 0.0, 1.0) # time constant
+        
         cmds = torch.clamp(actuator_cmds, -1.0, 1.0)
-        print(f"actuator commands: {cmds}\n")
-        self.actuator_setpoint = self.actuator_setpoint + tau*(torch.sqrt(cmds)-self.actuator_setpoint)
+        self.actuator_setpoint = self.actuator_setpoint + tau*(torch.sqrt(torch.abs(cmds))-self.actuator_setpoint)
         throttle = self.actuator_setpoint
+
         rotor_omega = self._rotor_dirs.view(1,-1)*throttle*omega_max
         thrust = kf*(throttle**2)*(rotor_omega**2)
         torque = -self._rotor_dirs.view(1,-1)*km*(throttle**2)*(rotor_omega**2)
-        return thrust, torque
+        return thrust, torque, rotor_omega
     
 
 @configclass
@@ -182,7 +195,9 @@ class RotorForceActionCfg(ActionTermCfg):
     class_type: type[ActionTerm] = RotorForceAction
 
     rotor_names: list[str] = ["rotor0", "rotor1", "rotor2", "rotor3"]
-    """List of joint names or regex expressions that the action will be mapped to."""
+    """List of rotor body link names or regex expressions that the action will be mapped to."""
+    joint_names: list[str] = ["rotor_0", "rotor_1", "rotor_2", "rotor_3"]
+    """List of rotor joint names or regex expressions that the action will be mapped to."""
     scale: float | dict[str, float] = 1.0
     """Scale factor for the action (float or dict of regex expressions). Defaults to 1.0."""
     offset: float | dict[str, float] = 0.0
@@ -195,6 +210,9 @@ class RotorForceActionCfg(ActionTermCfg):
     thrust_coefficient: float = 7.0e-6 # N/(rad/s)^2 
     """ km in Q = km * omega² [N*m/(rad/s)^2]. Tunable """
     moment_coefficient: float = 1.0e-7 # N*m/(rad/s)^2
+    """ Motor time constant to bring about delays for natural loaded bldc motor responses """
+    motor_time_constant: float = 0.05 # s
+    
     
 
 
