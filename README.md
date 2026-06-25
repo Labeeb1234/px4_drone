@@ -16,6 +16,7 @@ An open-source testing and development package for autonomous drone systems with
             	- the thrust force is simulated based on simple motor model using the thrust and torque constants and angular velocities of the drone motors
              		-[reference for drone motor dynamics modelling](https://medium.com/data-science/demystifying-drone-dynamics-ee98b1ba882f) --> note to self
                		- [another_note_to_self](https://andrew.gibiansky.com/downloads/pdf/Quadcopter%20Dynamics,%20Simulation,%20and%20Control.pdf)
+                 	- [another_reference_paper](https://www.scitepress.org/Papers/2024/122963/122963.pdf) 
              	- thrust force (upward always) torque rotation based on motor force cancellation for quadcoptors
               	- (Note to self): use graphing calculators while designing dense reward models for RL tasks
               	- First training: somewhat successfull at 1000th episode (made it train for even longer after that its on the ground basically)
