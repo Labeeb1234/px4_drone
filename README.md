@@ -53,6 +53,7 @@ An open-source testing and development package for autonomous drone systems with
               		- within 1200+ episodes of training   
               		- this is it mate, takeoff to given height and hover, albeit undesireable vibrations the required task was learnt
                 	- Next training iteration need to add penalty/reward for linear and angular velocities
+                 	- trained for 6k more episodes no improvements, the policy has converged as much as it can ig
                 - 11th training
                 	- all params of 10th training iterations
                  	- update termination conditions for x-y plane too (x-y plane bounds)  
