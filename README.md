@@ -36,7 +36,7 @@ An open-source testing and development package for autonomous drone systems with
               	 	- almost every iterations learned how to takeoff without need extra stabilization penalty but the drones aren't hovering (on to the next) within 500 episodes
               	    - results recorded
 				- 8th training
-              		-    
+              		- same condtions as 7th training but actions scale down by factor of 3.0
 
 <!-- ## References & Attribution
 
