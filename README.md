@@ -24,8 +24,19 @@ An open-source testing and development package for autonomous drone systems with
               	- 3rd training: same as 2nd training (need to put reward func for holding and pos holding)
               	- 4th training: improved the reward structuring and weights (still not good enough drone just stubborn to takeoff now)
               	- 5th training: added the "floor is lava" penalty to force drone off the ground (haven't added orientation stabilization reward yet)
+              	  
               	- 6th training: toppiling termination and its penalty for angling to unsafe orientations
-
+              		- Reward's {alt_rew, pos_tracking, floor_is_lava(clip value change)} --> weight changes 
+					- (PPO algo) horizon len, minibatch_size, num_envs {24,  24576, 1024}
+              		- actions clampped to [-1.0, 1.0] with scale 1.0 (**note to self**: for scale > 1.0 remove clamp)
+              	- 7th training
+                 	- Reward's {alt_rew, pos_tracking, floor_is_lava(clip value change)} --> weight changes 
+					- (PPO algo) horizon len, minibatch_size, num_envs {24,  24576, 1024}
+              		- actions scaled by 5.0
+              	 	- almost every iterations learned how to takeoff without need extra stabilization penalty but the drones aren't hovering (on to the next)
+              	    - results recorded
+				- 8th training
+              		-    
 
 <!-- ## References & Attribution
 
