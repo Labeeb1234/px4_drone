@@ -33,7 +33,7 @@ An open-source testing and development package for autonomous drone systems with
                  	- Reward's {alt_rew, pos_tracking, floor_is_lava(clip value change)} --> weight changes 
 					- (PPO algo) horizon len, minibatch_size, num_envs {24,  24576, 1024}
               		- actions scaled by 5.0
-              	 	- almost every iterations learned how to takeoff without need extra stabilization penalty but the drones aren't hovering (on to the next)
+              	 	- almost every iterations learned how to takeoff without need extra stabilization penalty but the drones aren't hovering (on to the next) within 500 episodes
               	    - results recorded
 				- 8th training
               		-    
