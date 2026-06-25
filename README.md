@@ -21,6 +21,9 @@ An open-source testing and development package for autonomous drone systems with
               	- First training: somewhat successfull at 1000th episode (made it train for even longer after that its on the ground basically)
               	- 2nd training: takeoff and stable flight but not holding
               	- 3rd training: same as 2nd training (need to put reward func for holding and pos holding)
+              	- 4th training: improved the reward structuring and weights (still not good enough drone just stubborn to takeoff now)
+              	- 5th training: added the "floor is lava" penalty to force drone off the ground (haven't added orientation stabilization reward yet)
+              	- 6th training: toppiling termination and its penalty for angling to unsafe orientations
 
 
 <!-- ## References & Attribution
