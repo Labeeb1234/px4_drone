@@ -37,22 +37,15 @@ An open-source testing and development package for autonomous drone systems with
               	    - results recorded
 				- 8th training
               		- same condtions as 7th training but actions scale down by factor of 3.0
+                	- will need orientation stabilization reward condtion here
+                 	- converged around 500 episodes and only got worse later on ---> taking back what I said after 100k episodes of accidental training it got way better, only small flucutations and vibrations at a fixed height now
+                    - improve pos reward params --> this can be done and trained once again
+                    - adding drone vel and ang vel reward/penalty terms (need to)
+                    - maybe add dynamic reward weight changing using curriculum feature of isaaclab (next training setup)  
 
-<!-- ## References & Attribution
-
-This project builds upon:
-- [PX4 Avoidance](https://github.com/PX4/PX4-Avoidance) - 3DVFH+* implementation (hardware tested local planner only)
-- [Fast-Planner](https://github.com/HKUST-Aerial-Robotics/Fast-Planner) - Trajectory optimization (only simulation as of now)
--->
 
 **Last Updated**: Jun 2026 
 **Repository**: [Labeeb1234/px4_drone](https://github.com/Labeeb1234/px4_drone) branch <feat/rl_quadcoptor_controller>
 **Status**: Active Development
-
-
-
-
-
-
 
 
