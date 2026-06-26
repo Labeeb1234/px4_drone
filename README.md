@@ -1,7 +1,7 @@
 # PX4 Drone - Autonomous Testing & Navigation Package
+---
 
 An open-source testing and development package for autonomous drone systems with advanced obstacle avoidance, path planning, and spatial understanding capabilities.
-
 
 - **Got a bit bored today so trying this**
   [article/paper inside as article](https://mark-s-cleverley.medium.com/self-flying-drones-and-reinforcement-learning-dba670188c4c)
@@ -56,8 +56,18 @@ An open-source testing and development package for autonomous drone systems with
                  	- trained for 6k more episodes no improvements, the policy has converged as much as it can ig
                 - 11th training
                 	- all params of 10th training iterations
-                 	- update termination conditions for x-y plane too (x-y plane bounds)  
+                 	- update termination conditions for x-y plane too (x-y plane bounds)
+                  	- This iteration of training isn't complete (putting on hold as already desirable results found, will come back later)
 
+
+## Videos
+---
+
+- 
+
+
+
+---
 **Last Updated**: Jun 2026 
 **Repository**: [Labeeb1234/px4_drone](https://github.com/Labeeb1234/px4_drone) branch <feat/rl_quadcoptor_controller>
 **Status**: Active Development
