@@ -98,16 +98,14 @@ class ObservationsCfg:
 @configclass
 class RewardCfg:
     ''' The required task is takeoff to required fixed target height and also stablize '''
-
     # -------------------------------------------------------
-
     # (3) pos(x,y) tracking reward/penalty
     pos_tracking_reward = RewTerm(
         func=cmdp.pos_prog_exp_l2,
         weight=0.5,
         params={
             "asset_cfg": SceneEntityCfg("drone"),
-            "sigma": 2.0
+            "sigma": 8.0
         }
     )
     # (1) takeoff/altitude rewarding/penalty
@@ -128,7 +126,6 @@ class RewardCfg:
             "drone_ground_clearance": 0.4540 # in [m]
         }
     )
-
     # (4) level drone objective
     smooth_level_drone_reward = RewTerm(
         func=cmdp.level_drone_exp_l2,
@@ -178,9 +175,19 @@ class TerminationCfg:
     time_out = DoneTerm(func=mdp.time_out, time_out=False)
     # reset on toppling to unsafe drone orientations
     toppling_time_out = DoneTerm(
-        func=cmdp.terminate_on_topple,
+        func=cmdp.terminate_on_unsafe_orientation,
         params={"asset_cfg": SceneEntityCfg("drone")}
     )
+    # reset if drone overshoot the target altitude by some tolerance (env altitude bound)
+    terminate_on_atl_bounds = DoneTerm(
+        func=cmdp.terminate_on_altitude_bounds,
+        params={
+            "asset_cfg": SceneEntityCfg("drone"),
+            "bound_tolerance": 2.0
+        }
+    )
+
+
 
 
 @configclass

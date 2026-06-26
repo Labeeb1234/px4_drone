@@ -24,7 +24,7 @@ def altitude_exp_l2(
 
     robot: Articulation = env.scene[asset_cfg.name] # drone articulation asset object
     # get bot height wrt ground
-    robot_z_pos = robot.data.root_pos_w[:, 2] # wrt world frame/env frame (inertial frame of reference)
+    robot_z_pos = robot.data.root_pos_w[:, 2] # wrt world frame (inertial frame of reference)
     height_error = target_height - robot_z_pos  # target height is measured wrt to the same coordinates as robot_z_pos
     # using exp l2 kernel
     return torch.exp(-height_error**2/sigma**2)
@@ -38,7 +38,7 @@ def ground_penalty_l2(
 ) -> torch.Tensor:
     
     robot: Articulation = env.scene[asset_cfg.name]
-    robot_z_pos = robot.data.root_pos_w[:, 2].unsqueeze(1) # wrt env frame of ref
+    robot_z_pos = robot.data.root_pos_w[:, 2].unsqueeze(1) # wrt world frame of ref (not env frame btw)
     gc = torch.tensor([drone_ground_clearance], device=env.device).repeat((env.num_envs,1)) # in [m] (fixed quantity)
     gc_offset = (gc-robot_z_pos)
     return torch.clip(gc_offset**2 - 1.0, clip_values[0], clip_values[1]).squeeze(1)
@@ -52,10 +52,11 @@ def pos_prog_exp_l2(
     
     pos_target = torch.tensor([0.0, 0.0], device=env.device).repeat((env.num_envs,1)) # can improve this part
     robot: Articulation = env.scene[asset_cfg.name]
-    robot_xy_pos = robot.data.root_pos_w[:, :2]
+    robot_xy_pos_w = robot.data.root_pos_w[:, :2]
+    robot_xy_pos_env = robot_xy_pos_w-env.scene.env_origins[:, :2]
     # pos (x-y) error based on x-y vec norm
     pos_error = torch.norm(
-        pos_target - robot_xy_pos,
+        pos_target - robot_xy_pos_env,
         dim=1
     )
     return torch.exp(-pos_error**2/sigma**2)
